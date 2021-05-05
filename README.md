@@ -55,6 +55,31 @@ sudo apt-get --purge remove "*nvidia*"
 ```
 https://cn.download.nvidia.com/XFree86/Linux-x86_64/460.39/NVIDIA-Linux-x86_64-460.39.run
 ```
+#### 网卡设置
+vim /etc/netpanl
+     ```
+                   network:
+              ethernets:
+                eno1np0(物理网卡地址):
+                  addresses:
+                  - 192.168.60.112/24  
+                  gateway4: 192.168.60.1
+                  nameservers:
+                    addresses:
+                    - 223.5.5.5
+              version: 2
+     ```
+     ip a  查询网卡地址
+     
+####worker 换miner机
+停止 worker进程  supervisorctl stop worker
+查看进程状态supervisorctl status
+修改 挂载脚本 mount.sh  注意路径和ip
+修改 run_worker (接口、环境变量等)和在目标miner组对应的worker对照脚本修改注意下面的 ip设置成固定 端口号注意不能冲突
+supervisorctl reread  & supervisorctl update 
+
+最后查看进程状态  supervisorctl status
+
 
 ## 常见问题处理
 
